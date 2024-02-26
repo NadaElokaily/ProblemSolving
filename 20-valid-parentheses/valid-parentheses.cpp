@@ -8,7 +8,7 @@ public:
             {
                 stk.push(c);
             }
-            else if (stk.empty()) return false;
+            else if (!stk.size()) return false;
             else if (c == ')')
             {
                 if(stk.top() != '(') return false;
@@ -25,7 +25,7 @@ public:
                 else stk.pop();
             }
         }
-        if(!stk.empty()) return false;
+        if(stk.size()) return false;
         return true;
     }
 };
