@@ -17,12 +17,7 @@ public:
         {
             if(p->val == q->val)            
             {
-                bool r = isSameTree(q->right, p->right);
-                bool l = isSameTree(q->left, p->left);
-                if((!r)||(!l)) 
-                    return false;
-                else 
-                    return true;
+                return isSameTree(q->right, p->right) && isSameTree(q->left, p->left);
             }
         }
         return false;
