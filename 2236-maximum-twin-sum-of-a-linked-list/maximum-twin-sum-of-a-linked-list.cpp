@@ -8,8 +8,6 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
- 
-#include <algorithm>
 class Solution {
 public:
     ListNode * reverseList(ListNode* head){
@@ -30,12 +28,13 @@ public:
             slow = slow->next;
         }
         ListNode * bw = reverseList(slow);
-        ListNode *fwd = head;
-        int max =0;
-        while(bw && fwd){
-            max = std::max(max, (fwd->val + bw->val));
+        int max =0, twinsum = 0;
+        while(bw && head){
+            twinsum = head->val + bw->val;
+            if(max < twinsum)
+                max = twinsum;
             bw = bw->next;;
-            fwd = fwd->next;
+            head = head->next;
         }
         return max;
     }
