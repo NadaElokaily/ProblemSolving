@@ -11,53 +11,42 @@
  */
 class Solution {
 public:
-    TreeNode* maxValue(TreeNode*root){
-        if(root==NULL){
-            return 0;
-        }
-        TreeNode*temp =root;
-        while(temp->right!=NULL){
-            temp= temp->right;
+    TreeNode* maxNode(TreeNode* root){
+        if(!root) return nullptr;
+        TreeNode* temp = root;
+        while(temp->right){
+            temp = temp->right;
         }
         return temp;
     }
-
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if(root==NULL)
-            return root;
-        
-        if(root->val ==key){
-            // for 0 child
-            if(root->left==NULL && root->right ==NULL){
+        if(!root) return nullptr;
+        if(root->val == key){
+            if(!root->left && !root->right){
                 delete root;
-                return NULL;
+                root = nullptr;
             }
-            // for 1 child
-            if(root->left!=NULL && root->right ==NULL){
-                TreeNode*temp = root->left;
+            else if(root->left && !root->right){
+                TreeNode* temp = root->left;
                 delete root;
-                return temp;
+                root = temp;
             }
-            if(root->left==NULL && root->right !=NULL){
-                TreeNode*temp = root->right;
+            else if(!root->left && root->right){
+                TreeNode* temp = root->right;
                 delete root;
-                return temp;
+                root = temp;
             }
-            // for 2 child
-            if(root->left!=NULL && root->right!=NULL){
-                int maxi = maxValue(root->left)->val;
+            else{
+                int maxi = maxNode(root->left)->val;
                 root->val = maxi;
-                root->left =deleteNode(root->left,maxi);
-                return root;
+                root->left = deleteNode(root->left,maxi);
             }
         }
-        else if(root->val >key){
-            root->left= deleteNode(root->left,key);
-            return root;
+        else if(root->val > key){
+            root->left = deleteNode(root->left, key);
         }
-        else{
-            root->right = deleteNode(root->right,key);
-            return root;
+        else if(root->val < key){
+            root->right = deleteNode(root->right, key);
         }
         return root;
     }
