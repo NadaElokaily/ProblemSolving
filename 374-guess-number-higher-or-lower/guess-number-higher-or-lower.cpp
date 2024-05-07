@@ -10,19 +10,18 @@
 class Solution {
 public:
     int guessNumber(int n) {
-        long long g, r=n, l=1, m = (l+r)/2;
-        while(l<=r){
-            m = (l+r)/2;
+        long long r = n,l = 1;
+        int m, g;
+        while(r>=l){
+            m=(r+l)/2;
             g = guess(m);
-            if(g == -1){
-                r = m - 1;
-            }
-            else if(g == 1){
-                l = m + 1;
-            }else {
-                break;
-            }
+            if(g == 0)
+                return m;
+            if(g == -1)
+                r = m-1;
+            if( g ==1)
+                l = m+1;
         }
-        return m;
+        return -1;
     }
 };
